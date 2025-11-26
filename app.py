@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 import asyncio
 
 from aiogram import Bot, Dispatcher, types, F
@@ -13,11 +14,19 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from dotenv import load_dotenv, find_dotenv
 
 from handlers.user_private import user_private_router
+
+from common.bot_cmds_list import private
+
 from config import settings
-from database.engine import create_db, drop_db, session_maker
+
 from middleware.db import DataBaseSession
+
 from kbds.inline import get_purchase_keyboard
-from database.orm_query import change_access_status_user, get_user_access_status
+
+from database.engine import create_db, drop_db, session_maker
+from database.engine import create_db, drop_db, session_maker
+from database.orm_query import change_access_status_user
+
 
 load_dotenv(find_dotenv())
 
@@ -96,8 +105,9 @@ async def main() -> None:
     dp.update.outer_middleware(DataBaseSession(session_pool=session_maker))
 
     await bot.delete_webhook(drop_pending_updates=True)
-    # await bot.set_my_commands()
+    await bot.set_my_commands(commands=private, scope=types.BotCommandScopeAllPrivateChats())
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
