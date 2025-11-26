@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from .models.user import User
 
@@ -31,3 +31,25 @@ async def get_user_by_user_id(
     )
     user = stmt.scalar_one_or_none()
     return user
+
+async def change_access_status_user(
+    session: AsyncSession,
+    user_id: int,
+):
+    stmt = (
+        update(User)
+        .where(User.user_id == user_id)
+        .values(access_status = True)
+    )
+    await session.execute(stmt)
+    await session.commit()
+
+async def get_user_access_status(
+    session: AsyncSession,
+    user_id: int
+):
+    stmt = await session.execute(
+        select(User.access_status).where(User.user_id == user_id)
+    )
+    user_access_status = stmt.scalar()
+    return user_access_status
