@@ -15,21 +15,15 @@ async def start_cmd_handler(message: types.Message, session: AsyncSession):
         user_id=message.from_user.id,
     )
     if user is None:
-        await message.answer("Нажми команду: /reg")
-    else:
-        await message.answer("Ты в боте")
-    
-@user_private_router.message(Command("reg"))
-async def reg_cmd_handler(message: types.Message, session: AsyncSession):
-    check_user = await get_user_by_user_id(session=session, user_id=message.from_user.id)
-    if check_user is None:
         await create_user(
             session=session,
             user_id=message.from_user.id,
             first_name=message.from_user.first_name,
             last_name=message.from_user.last_name,
             phone=None,
+            access_status=False,
         )
-        await message.answer("Успешная регистрация")
+        await message.answer("Купи подписку или введи промокод: /subscribe - Подписка, промокод просто введите и отправьте")    
+
     else:
-        await message.answer("Вы уже в бд")
+        await message.answer("Привет, это крипто бот")
