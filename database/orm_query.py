@@ -6,6 +6,7 @@ from .models.user import User
 async def create_user(
     session: AsyncSession,
     user_id: int,
+    access_status: bool,
     first_name: str | None = None,
     last_name: str | None = None,
     phone: str | None = None,
@@ -14,7 +15,8 @@ async def create_user(
         user_id=user_id,
         first_name=first_name,
         last_name=last_name,
-        phone=phone
+        phone=phone,
+        access_status=access_status,
     )
     session.add(user)
     await session.commit()
