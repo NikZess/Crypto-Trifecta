@@ -8,6 +8,8 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from aiogram.types import LabeledPrice, PreCheckoutQuery, Message
 
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from dotenv import load_dotenv, find_dotenv
 
 from handlers.user_private import user_private_router
@@ -44,11 +46,11 @@ async def process_callback_query(callback_query: types.CallbackQuery) -> None:
     
     elif action == "2":
         description = "Подписка на бота (3 месяца) 📑"
-        prices = [LabeledPrice(label="Оплата заказа №2", amount=300*100)]
+        prices = [LabeledPrice(label="Оплата заказа №2", amount=300 * 100)]
 
     elif action == "3":
         description = "Подписка на бота (1 год) 📑"
-        prices = [LabeledPrice(label="Оплата заказа №3", amount=1200*100)]
+        prices = [LabeledPrice(label="Оплата заказа №3", amount=1200 * 100)]
     
     if prices:
         await bot.send_invoice(
@@ -56,10 +58,10 @@ async def process_callback_query(callback_query: types.CallbackQuery) -> None:
             title=f'Подписка на бота 🤖',
             description=description,
             payload=f'sub{action}',
-            provider_token=settings.BOT_TOKEN,
-            currency=CURRENCY,
+            provider_token=settings.PROVIDER_TOKEN,
+            currency=settings.CURRENCY,
             start_parameter='test',
-            prices=prices
+            prices=prices,
         )
 
 @dp.pre_checkout_query()
@@ -74,21 +76,8 @@ async def process_successful_payment(message: Message, session: AsyncSession) ->
     response_message = payload_to_message.get(message.successful_payment.invoice_payload, 'Оплата прошла успешно!')
     await message.answer(response_message)
     
-    sub_user_id = message.from_user.id
-    list_vip_users.append(sub_user_id)
 
-    user = message.from_user
-    try:
-        await orm_add_user(
-            session,
-            user_id=user.id,
-            first_name=user.first_name,
-            last_name=user.last_name,
-            phone=None,
-        )
-        await message.answer("Вы успешно добавлены в базу данных!")
-    except Exception as e:
-        await message.answer("Произошла ошибка при добавлении вас в базу данных.")
+    
 
 dp.include_router(user_private_router)
 
