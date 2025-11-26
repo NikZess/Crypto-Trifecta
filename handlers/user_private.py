@@ -5,16 +5,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.orm_query import create_user, get_user_by_user_id
 
+from database.orm_query import get_user_access_status
+
 user_private_router = Router()
 
 @user_private_router.message(CommandStart())
 async def start_cmd_handler(message: types.Message, session: AsyncSession):
-    await message.answer("Привет!")
-    user = await get_user_by_user_id(
-        session=session,
-        user_id=message.from_user.id,
-    )
-    if user is None:
+    check_user = await get_user_by_user_id(session=session, user_id=message.from_user.id)
+    if check_user is None:
         await create_user(
             session=session,
             user_id=message.from_user.id,
@@ -22,8 +20,9 @@ async def start_cmd_handler(message: types.Message, session: AsyncSession):
             last_name=message.from_user.last_name,
             phone=None,
             access_status=False,
-        )
+        )    
+    user_access_status = await get_user_access_status(session=session, user_id=message.from_user.id)
+    if user_access_status == False:
         await message.answer("Купи подписку или введи промокод: /subscribe - Подписка, промокод просто введите и отправьте")    
-
     else:
-        await message.answer("Привет, это крипто бот")
+        await message.answer("Привет!")
