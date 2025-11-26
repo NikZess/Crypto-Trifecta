@@ -17,6 +17,7 @@ from config import settings
 from database.engine import create_db, drop_db, session_maker
 from middleware.db import DataBaseSession
 from kbds.inline import get_purchase_keyboard
+from database.orm_query import change_access_status_user, get_user_access_status
 
 load_dotenv(find_dotenv())
 
@@ -74,11 +75,11 @@ async def process_successful_payment(message: Message, session: AsyncSession) ->
         'sub1': '💵 Подписка на бота 📑',
     }
     response_message = payload_to_message.get(message.successful_payment.invoice_payload, 'Оплата прошла успешно!')
-    await message.answer(response_message)
-    
+    await message.answer(response_message)   
+
+    await change_access_status_user(session=session, user_id=message.from_user.id) 
 
     
-
 dp.include_router(user_private_router)
 
 async def on_startup(bot):
