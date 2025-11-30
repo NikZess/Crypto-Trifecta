@@ -7,6 +7,9 @@ from database.orm_query import create_user, get_user_by_user_id, get_user_access
 
 from common.text_for_bot import text_of_bot
 
+from handlers.menu_processing import get_menu_content
+from kbds.inline import MenuCallBack
+
 user_private_router = Router()
 
 @user_private_router.message(CommandStart())
@@ -25,4 +28,11 @@ async def start_cmd_handler(message: types.Message, session: AsyncSession):
     if user_access_status == False:
         await message.answer("Купи подписку или введи промокод: /subscribe - Подписка, промокод просто введите и отправьте")    
     else:
-        await message.answer(text_of_bot["ru"]["main_menu"])
+        description, kbds = await get_menu_content(level=0)
+        await message.answer(description, reply_markup=kbds)
+
+
+@user_private_router.callback_query(MenuCallBack.filter())
+async def user_menu(callback: types.CallbackQuery, callback_data: MenuCallBack):
+    description, kbds = await get_menu_content(level=callback_data.level)
+    await callback.message.edit_text(description, reply_markup=kbds)
