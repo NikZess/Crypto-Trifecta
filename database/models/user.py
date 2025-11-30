@@ -11,3 +11,4 @@ class User(Base):
     phone: Mapped[str] = mapped_column(String(20), nullable=True)
 
     access_status: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    # language: Mapped[str] = mapped_column(String) 
