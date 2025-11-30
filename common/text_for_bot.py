@@ -11,13 +11,17 @@ text_of_bot = {
                     "/portfolio - Управление портфелем\n"
                     "/signals - Торговые сигналы\n"
                     "/stats - Статистика доходности\n"
-                    "/help - Помощь и инструкции\n\n"
+                    "/help - Помощь и инструкции\n\n\n"
 
                     "<strong>🛑🛑🛑 ** ДИСКЛЕЙМЕР ** 🛑🛑🛑\n\n</strong>"
                     "Информация от бота — не финансовая рекомендация. \n"
                     "Мы предоставляем только данные, решение принимает сам пользователь 🙃\n\n"
 
-                    "<b>Мы настоятельно рекомендумем вам прочитать всю информацию о боте - /help 😉</b>"
+                    "<b>Мы настоятельно рекомендумем вам прочитать всю информацию о боте - /help 😉</b>",
+        
+        "settings_menu": "Меню настроек бота",
+
+        "help_menu": "Меню помощи по боту"
     },
     "en": {
         "main_menu": "<strong>🚀 **Welcome to CryptoTrifecta!**\n</strong>"
@@ -37,6 +41,8 @@ text_of_bot = {
                     "Information from the bot is not financial advice.\n"
                     "We only provide data; the user makes the decision 🙃\n\n"
 
-                    "<b>We strongly recommend that you read all the information about the bot - /help 😉</b>"
+                    "<b>We strongly recommend that you read all the information about the bot - /help 😉</b>",
+
+        "help_menu": "Menu of help",
     }
 }
