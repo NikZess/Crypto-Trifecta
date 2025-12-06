@@ -65,6 +65,7 @@ def get_user_settings_btns(*, level: int, sizes: tuple[int] = (1,)) -> InlineKey
 
     btns = {
         "🌍 Язык": "language",
+        "🔙 Назад": "back_main_menu",
     }
 
     for text, menu_name in btns.items():
@@ -72,6 +73,12 @@ def get_user_settings_btns(*, level: int, sizes: tuple[int] = (1,)) -> InlineKey
             keyboard.add(InlineKeyboardButton(
                 text=text,
                 callback_data=MenuCallBack(level=5.1, menu_name=menu_name).pack()
+            ))
+
+        if menu_name == "back_main_menu":
+            keyboard.add(InlineKeyboardButton(
+                text=text,
+                callback_data=MenuCallBack(level=0, menu_name=menu_name).pack()
             ))
     
     return keyboard.adjust(*sizes).as_markup()
