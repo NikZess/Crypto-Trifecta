@@ -23,26 +23,4 @@ text_of_bot = {
 
         "help_menu": "Меню помощи по боту"
     },
-    "en": {
-        "main_menu": "<strong>🚀 **Welcome to CryptoTrifecta!**\n</strong>"
-                    "Your all-in-one cryptocurrency assistant bot:\n\n"
-
-                    "📊 **Portfolio Tracker** - track profits and losses\n"
-                    "🔔 **Market Signals** - aggregate the best trading ideas\n"
-                    "💵 **Cryptocurrency Rates** - display the prices of various cryptocurrencies\n\n"
-
-                    "**Available commands:**\n\n"
-                    "/portfolio - Portfolio management\n"
-                    "/signals - Trading signals\n"
-                    "/stats - Profitability statistics\n"
-                    "/help - Help and instructions\n\n"
-
-                    "<strong>🛑🛑🛑 **DISCLAIMER** 🛑🛑🛑\n\n</strong>"
-                    "Information from the bot is not financial advice.\n"
-                    "We only provide data; the user makes the decision 🙃\n\n"
-
-                    "<b>We strongly recommend that you read all the information about the bot - /help 😉</b>",
-
-        "help_menu": "Menu of help",
-    }
 }
