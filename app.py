@@ -91,7 +91,7 @@ async def process_successful_payment(message: Message, session: AsyncSession) ->
 dp.include_router(user_private_router)
 
 async def on_startup(bot):
-    await create_db() 
+    await create_db()
     # await drop_db()
 
 async def on_shutdown(bot):
