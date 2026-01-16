@@ -2,6 +2,8 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.filters.callback_data import CallbackData
 
+from common.crypto_currencies import crypto_currencies
+
 
 class MenuCallBack(CallbackData, prefix="menu"):
     level: float
@@ -117,12 +119,39 @@ def get_user_portfolio_tracker_addmenu_btns(*, level: int, sizes: tuple[int] = (
 
 def get_user_market_signals_menu_btns(*, level: int, sizes: tuple[int] = (1, 1)) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardBuilder()
-    
+        
+    btns = crypto_currencies
+        
+    for text, menu_name in btns.items():
+        
+        keyboard.add(InlineKeyboardButton(
+            text=text,
+            callback_data=MenuCallBack(level=2.1, menu_name=menu_name).pack()
+        ))
+        
+    keyboard.add(InlineKeyboardButton(
+        text="🔙 Назад",
+        callback_data=MenuCallBack(level=0, menu_name="back_main_menu").pack()
+    ))
+        
+    return keyboard.adjust(*sizes).as_markup()
 
+def get_user_market_currency_signals_and_btn_to_back(*, level: int, sizes: tuple[int] = (1, 1)) -> InlineKeyboardMarkup:
+    keyboard = InlineKeyboardBuilder()
+    
     btns = {
-        ""
         "🔙 Назад": "back_main_menu",
     }
+    
+        
+    for text, menu_name in btns.items():
+        keyboard.add(InlineKeyboardButton(
+            text=text,
+            callback_data=MenuCallBack(level=2.0, menu_name=menu_name).pack()
+        ))
+        
+    return keyboard.adjust(*sizes).as_markup()
+
 
 # SETTINGS
 
