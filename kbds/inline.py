@@ -15,6 +15,13 @@ def get_purchase_keyboard() -> InlineKeyboardMarkup:
         [InlineKeyboardButton(text="1 год 💰", callback_data="buy_3")],
     ])
 
+
+def get_signals_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="")]
+    ])
+
+
 def get_user_main_btns(*, level: int, sizes: tuple[int] = (3, 1, 1)) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardBuilder()
 
@@ -104,6 +111,18 @@ def get_user_portfolio_tracker_addmenu_btns(*, level: int, sizes: tuple[int] = (
             ))
     
     return keyboard.adjust(*sizes).as_markup()
+
+
+# MARKET SIGNALS
+
+def get_user_market_signals_menu_btns(*, level: int, sizes: tuple[int] = (1, 1)) -> InlineKeyboardMarkup:
+    keyboard = InlineKeyboardBuilder()
+    
+
+    btns = {
+        ""
+        "🔙 Назад": "back_main_menu",
+    }
 
 # SETTINGS
 
