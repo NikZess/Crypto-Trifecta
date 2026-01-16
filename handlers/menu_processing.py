@@ -7,6 +7,8 @@ from kbds.inline import (
 
 from common.text_for_bot import text_of_bot
 
+from parser import get_currency_price_by_currency_id
+
 async def main_menu(level: int):
     description = text_of_bot["ru"]["main_menu"]
     kbds = get_user_main_btns(level=level)
@@ -14,7 +16,7 @@ async def main_menu(level: int):
     return description, kbds
 
 
-async def portfolio_menu(level: int):
+async  def portfolio_menu(level: int):
     description = text_of_bot["ru"]["portfolio_menu"]
     kbds = get_user_portfolio_tracker_btns(level=level)
 
@@ -29,7 +31,7 @@ async def portfolio_add_currency_menu(level: int):
 
 
 async def settings_menu(level: int):
-    description = text_of_bot["ru"]["settings_menu"]
+    description = await get_currency_price_by_currency_id(currency_id=1)
     kbds = get_user_settings_btns(level=level)
     
     return description, kbds
