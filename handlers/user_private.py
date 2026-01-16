@@ -35,10 +35,5 @@ async def start_cmd_handler(message: types.Message, session: AsyncSession):
 
 @user_private_router.callback_query(MenuCallBack.filter())
 async def user_menu(callback: types.CallbackQuery, callback_data: MenuCallBack):
-    description, kbds = await get_menu_content(level=callback_data.level)
+    description, kbds = await get_menu_content(level=callback_data.level, menu_name=callback_data.menu_name)
     await callback.message.edit_text(description, reply_markup=kbds)
-
-
-@user_private_router.callback_query(F.data.startswith(""))
-async def user_get_settings_menu(callback: types.CallbackQuery, callback_data):
-    await callback.message.edit_text()
