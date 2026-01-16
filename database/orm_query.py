@@ -7,6 +7,7 @@ async def create_user(
     session: AsyncSession,
     user_id: int,
     access_status: bool,
+    signal_permission: bool,
     first_name: str | None = None,
     last_name: str | None = None,
     phone: str | None = None,
@@ -17,6 +18,7 @@ async def create_user(
         last_name=last_name,
         phone=phone,
         access_status=access_status,
+        signal_permission=signal_permission,
     )
     session.add(user)
     await session.commit()
@@ -53,3 +55,5 @@ async def get_user_access_status(
     )
     user_access_status = stmt.scalar()
     return user_access_status
+
+
