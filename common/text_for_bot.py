@@ -23,6 +23,8 @@ text_of_bot = {
 
         "portfolio_menu_add_currency": "Меню добавления валюты в крипто портфель",
         
+        "signals_menu": "Меню сигналов крипторынка",
+        
         "settings_menu": "Меню настроек бота",
 
         "help_menu": "Меню помощи по боту"
