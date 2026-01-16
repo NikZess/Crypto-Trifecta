@@ -1,4 +1,4 @@
-from aiogram import Router, types
+from aiogram import Router, types, F
 from aiogram.filters import CommandStart, Command
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -23,6 +23,7 @@ async def start_cmd_handler(message: types.Message, session: AsyncSession):
             last_name=message.from_user.last_name,
             phone=None,
             access_status=False,
+            signal_permission=False,
         )    
     user_access_status = await get_user_access_status(session=session, user_id=message.from_user.id)
     if user_access_status == False:
@@ -36,3 +37,8 @@ async def start_cmd_handler(message: types.Message, session: AsyncSession):
 async def user_menu(callback: types.CallbackQuery, callback_data: MenuCallBack):
     description, kbds = await get_menu_content(level=callback_data.level)
     await callback.message.edit_text(description, reply_markup=kbds)
+
+
+@user_private_router.callback_query(F.data.startswith(""))
+async def user_get_settings_menu(callback: types.CallbackQuery, callback_data):
+    await callback.message.edit_text()
