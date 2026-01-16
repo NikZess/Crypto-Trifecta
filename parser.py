@@ -1,4 +1,3 @@
-from aiohttp import ClientSession
 import requests
 from async_lru import alru_cache
 
